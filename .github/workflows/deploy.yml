@@ -1,26 +1,32 @@
-name: Build and Deploy Angular app
+name: Deploy Angular app to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main   # Branche sur laquelle tu travailles (ou 'master')
       - master
       - vamos
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '18'
 
-      - run: npm install
-      - run: npm run build -- --configuration=production
+      - name: Install dependencies
+        run: npm install
 
-      - name: Deploy
+      - name: Build app
+        run: ng build --configuration production --base-href /portfolio/
+
+      - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
