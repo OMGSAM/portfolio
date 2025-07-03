@@ -1,4 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {}
+module.exports = {
+  output: 'export',
+  basePath: '/portfolio', // ← très important pour GitHub Pages
+};
 
-module.exports = nextConfig
